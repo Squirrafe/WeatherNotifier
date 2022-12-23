@@ -43,7 +43,7 @@ jobs:
         with:
           name: PHPUnit
           path: report_phpunit.xml
-          reporter: jest-junit
+          reporter: java-junit
 
   CodeSniffer:
     runs-on: ubuntu-latest
@@ -74,7 +74,7 @@ jobs:
         with:
           name: Code sniffer
           path: report_phpcs.xml
-          reporter: jest-junit
+          reporter: java-junit
 
   PhpStan:
     runs-on: ubuntu-latest
@@ -105,4 +105,4 @@ jobs:
         with:
           name: PHPStan
           path: report_phpstan.xml
-          reporter: jest-junit
+          reporter: java-junit
