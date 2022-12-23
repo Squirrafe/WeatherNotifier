@@ -36,13 +36,13 @@ jobs:
       - name: Execute tests
         env:
           DATABASE_URL: sqlite:///%kernel.project_dir%/data/database.sqlite
-        run: vendor/bin/phpunit --log-junit reports/phpunit.xml
+        run: vendor/bin/phpunit --log-junit report_phpunit.xml
       - name: Test Report
         uses: dorny/test-reporter@v1
         if: always()
         with:
           name: PHPUnit
-          path: reports/phpunit.xml
+          path: report_phpunit.xml
           reporter: jest-junit
 
   CodeSniffer:
@@ -67,13 +67,13 @@ jobs:
           mkdir -p data
           touch data/database.sqlite
       - name: Code sniffer
-        run: vendor/bin/phpcs -q --report=junit --report-file=reports/phpcs.xml
+        run: vendor/bin/phpcs -q --report=junit --report-file=report_phpcs.xml
       - name: Test Report
         uses: dorny/test-reporter@v1
         if: always()
         with:
           name: Code sniffer
-          path: reports/phpcs.xml
+          path: report_phpcs.xml
           reporter: jest-junit
 
   PhpStan:
@@ -98,11 +98,11 @@ jobs:
           mkdir -p data
           touch data/database.sqlite
       - name: Code sniffer
-        run: vendor/bin/phpstan analyze --no-progress --error-format=junit > phpstan.xml
+        run: vendor/bin/phpstan analyze --no-progress --error-format=junit > report_phpstan.xml
       - name: Test Report
         uses: dorny/test-reporter@v1
         if: always()
         with:
           name: PHPStan
-          path: reports/phpstan.xml
+          path: report_phpstan.xml
           reporter: jest-junit
