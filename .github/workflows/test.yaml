@@ -38,12 +38,10 @@ jobs:
           DATABASE_URL: sqlite:///%kernel.project_dir%/data/database.sqlite
         run: vendor/bin/phpunit --log-junit report_phpunit.xml
       - name: Test Report
-        uses: dorny/test-reporter@v1
+        uses: mikepenz/action-junit-report@v3
         if: always()
         with:
-          name: PHPUnit
-          path: report_phpunit.xml
-          reporter: java-junit
+          report_paths: report_phpunit.xml
 
   CodeSniffer:
     runs-on: ubuntu-latest
@@ -69,12 +67,10 @@ jobs:
       - name: Code sniffer
         run: vendor/bin/phpcs -q --report=junit --report-file=report_phpcs.xml
       - name: Test Report
-        uses: dorny/test-reporter@v1
+        uses: mikepenz/action-junit-report@v3
         if: always()
         with:
-          name: Code sniffer
-          path: report_phpcs.xml
-          reporter: java-junit
+          report_paths: report_phpcs.xml
 
   PhpStan:
     runs-on: ubuntu-latest
@@ -100,9 +96,7 @@ jobs:
       - name: Code sniffer
         run: vendor/bin/phpstan analyze --no-progress --error-format=junit > report_phpstan.xml
       - name: Test Report
-        uses: dorny/test-reporter@v1
+        uses: mikepenz/action-junit-report@v3
         if: always()
         with:
-          name: PHPStan
-          path: report_phpstan.xml
-          reporter: java-junit
+          report_paths: report_phpstan.xml
