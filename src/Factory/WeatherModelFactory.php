@@ -37,14 +37,13 @@ use DateTimeImmutable;
  *     icon: string,
  * }
  */
-
-readonly class WeatherModelFactory
+class WeatherModelFactory
 {
     public function __construct(
-        private WeatherConditionFactory $conditionFactory,
-        private LengthFactory $lengthFactory,
-        private TemperatureFactory $temperatureFactory,
-        private SpeedFactory $speedFactory,
+        private readonly WeatherConditionFactory $conditionFactory,
+        private readonly LengthFactory $lengthFactory,
+        private readonly TemperatureFactory $temperatureFactory,
+        private readonly SpeedFactory $speedFactory,
     ) {
     }
 

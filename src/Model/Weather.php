@@ -4,27 +4,27 @@ namespace App\Model;
 
 use DateTimeImmutable;
 
-readonly class Weather
+class Weather
 {
     /**
      * @param WeatherCondition[] $weatherConditions
      */
     public function __construct(
-        public DateTimeImmutable $timestamp,
-        public Temperature $temperature,
-        public Temperature $feelsLike,
-        public float $pressure,
-        public float $humidity,
-        public Temperature $dewPoint,
-        public ?float $uvi,
-        public float $clouds,
-        public ?Length $visibility,
-        public float $windDegrees,
-        public Speed $windSpeed,
-        public ?Speed $windGust,
-        public ?float $lastHourRain,
-        public ?float $lastHourSnow,
-        public array $weatherConditions,
+        public readonly DateTimeImmutable $timestamp,
+        public readonly Temperature $temperature,
+        public readonly Temperature $feelsLike,
+        public readonly float $pressure,
+        public readonly float $humidity,
+        public readonly Temperature $dewPoint,
+        public readonly ?float $uvi,
+        public readonly float $clouds,
+        public readonly ?Length $visibility,
+        public readonly float $windDegrees,
+        public readonly Speed $windSpeed,
+        public readonly ?Speed $windGust,
+        public readonly ?float $lastHourRain,
+        public readonly ?float $lastHourSnow,
+        public readonly array $weatherConditions,
     ) {
     }
 }
