@@ -35,7 +35,11 @@ class SpeedTest extends TestCase
     public function testGetKilometersPerHour(array $speeds): void
     {
         $speed = new Speed($speeds['metersPerSecond']);
-        self::assertEqualsWithDelta($speeds['kilometersPerHour'], $speed->getKilometersPerHour(), self::ACCEPTABLE_DELTA);
+        self::assertEqualsWithDelta(
+            $speeds['kilometersPerHour'],
+            $speed->getKilometersPerHour(),
+            self::ACCEPTABLE_DELTA,
+        );
     }
 
     /**
