@@ -11,6 +11,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
+/**
+ * @phpstan-import-type OpenWeatherJsonFull from WeatherModelFactory
+ */
 #[AsCommand(name: 'app:reload-weather', description: 'Loads weather data from OpenWeather API')]
 class ReloadWeatherCommand extends Command
 {
@@ -38,6 +41,7 @@ class ReloadWeatherCommand extends Command
         );
 
         if ($response->getStatusCode() === Response::HTTP_OK) {
+            /** @var OpenWeatherJsonFull $json */
             $json = json_decode($response->getContent(), associative: true);
             $current = $this->weatherModelFactory->buildFromOpenWeatherJson($json['current']);
             $hourly = array_map(
@@ -49,12 +53,11 @@ class ReloadWeatherCommand extends Command
                 $json['daily'],
             );
 
-            $output->writeln('Current time: '.$current->timestamp->format('Y-m-d H:i:s'));
-            $output->writeln('Hourly count: '.count($hourly));
-            $output->writeln('Daily count: '.count($daily));
+            $output->writeln('Current time: ' . $current->timestamp->format('Y-m-d H:i:s'));
+            $output->writeln('Hourly count: ' . count($hourly));
+            $output->writeln('Daily count: ' . count($daily));
         }
 
         return self::SUCCESS;
     }
-
 }

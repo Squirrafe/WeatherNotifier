@@ -16,14 +16,18 @@ class TemperatureFactoryTest extends TestCase
         $this->temperatureFactory = new TemperatureFactory();
     }
 
-    /** @dataProvider buildDataProvider */
+    /**
+     * @dataProvider buildDataProvider
+     * @param float|int|array{day: float|int} $input
+     * @param Temperature $expected
+     */
     public function testBuild(float|int|array $input, Temperature $expected): void
     {
         $temperature = $this->temperatureFactory->build($input);
         self::assertEquals($expected, $temperature);
     }
 
-    /** @return iterable<array{input: float|int|array, expected: Temperature}> */
+    /** @return iterable<array{input: float|int|array{day: float|int}, expected: Temperature}> */
     public function buildDataProvider(): iterable
     {
         yield [

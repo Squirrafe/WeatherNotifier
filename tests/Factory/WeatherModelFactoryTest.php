@@ -14,12 +14,15 @@ use App\Model\WeatherCondition;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @phpstan-import-type OpenWeatherJsonEntry from WeatherModelFactory
+ */
 class WeatherModelFactoryTest extends TestCase
 {
-    private MockObject|WeatherConditionFactory $conditionFactory;
-    private MockObject|LengthFactory $lengthFactory;
-    private MockObject|TemperatureFactory $temperatureFactory;
-    private MockObject|SpeedFactory $speedFactory;
+    private MockObject&WeatherConditionFactory $conditionFactory;
+    private MockObject&LengthFactory $lengthFactory;
+    private MockObject&TemperatureFactory $temperatureFactory;
+    private MockObject&SpeedFactory $speedFactory;
 
     private WeatherModelFactory $factory;
 
@@ -39,7 +42,10 @@ class WeatherModelFactoryTest extends TestCase
         );
     }
 
-    /** @dataProvider buildFromOpenWeatherJson */
+    /**
+     * 2@dataProvider buildFromOpenWeatherJsonDataProvider
+     * @param OpenWeatherJsonEntry $input
+     */
     public function testBuildFromOpenWeatherJson(array $input): void
     {
         $temperature1 = $this->createMock(Temperature::class);
@@ -83,7 +89,7 @@ class WeatherModelFactoryTest extends TestCase
         self::assertSame((float) $input['pressure'], $weather->pressure);
         self::assertSame((float) $input['humidity'], $weather->humidity);
         self::assertSame($temperature3, $weather->dewPoint);
-        self::assertSame($input['uvi'] === null ? null : (float) $input['uvi'], $weather->uvi);
+        self::assertSame(($input['uvi'] ?? null) === null ? null : (float) $input['uvi'], $weather->uvi);
         self::assertSame((float) $input['clouds'], $weather->clouds);
         self::assertSame($length, $weather->visibility);
         self::assertSame((float) $input['wind_deg'], $weather->windDegrees);
@@ -97,7 +103,10 @@ class WeatherModelFactoryTest extends TestCase
         self::assertSame($conditions, $weather->weatherConditions);
     }
 
-    public function buildFromOpenWeatherJson(): iterable
+    /**
+     * @return iterable<array{input: OpenWeatherJsonEntry}>
+     */
+    public function buildFromOpenWeatherJsonDataProvider(): iterable
     {
         yield [
             'input' => [
@@ -114,7 +123,7 @@ class WeatherModelFactoryTest extends TestCase
                 'wind_speed' => 67,
                 'wind_gust' => 31,
                 'rain' => [ '1h' => 15 ],
-                'weather' => [ 'id' => 301 ],
+                'weather' => [[ 'id' => 301, 'main' => '', 'description' => '', 'icon' => '' ]],
             ],
         ];
     }
