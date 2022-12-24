@@ -5,66 +5,105 @@ namespace App\Tests\Model;
 use App\Model\Temperature;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @phpstan-type DataProviderType array{
+ *     celsius: int|float,
+ *     fahrenheit: int|float,
+ *     kelvin: int|float,
+ *     rankine: int|float,
+ *     delisle: int|float,
+ *     newton: int|float,
+ *     reaumur: int|float,
+ *     roemer: int|float,
+ * }
+ */
 class TemperatureTest extends TestCase
 {
     public const ACCEPTABLE_DELTA = 0.01;
 
-    /** @dataProvider temperatureDataProvider */
+    /**
+     * @dataProvider temperatureDataProvider
+     * @param DataProviderType $degrees
+     */
     public function testGetKelvin(array $degrees): void
     {
         $temperature = new Temperature($degrees['kelvin']);
         self::assertEqualsWithDelta($degrees['kelvin'], $temperature->getKelvin(), self::ACCEPTABLE_DELTA);
     }
 
-    /** @dataProvider temperatureDataProvider */
+    /**
+     * @dataProvider temperatureDataProvider
+     * @param DataProviderType $degrees
+     */
     public function testGetCelsius(array $degrees): void
     {
         $temperature = new Temperature($degrees['kelvin']);
         self::assertEqualsWithDelta($degrees['celsius'], $temperature->getCelsius(), self::ACCEPTABLE_DELTA);
     }
 
-    /** @dataProvider temperatureDataProvider */
+    /**
+     * @dataProvider temperatureDataProvider
+     * @param DataProviderType $degrees
+     */
     public function testGetFahrenheit(array $degrees): void
     {
         $temperature = new Temperature($degrees['kelvin']);
         self::assertEqualsWithDelta($degrees['fahrenheit'], $temperature->getFahrenheit(), self::ACCEPTABLE_DELTA);
     }
 
-    /** @dataProvider temperatureDataProvider */
+    /**
+     * @dataProvider temperatureDataProvider
+     * @param DataProviderType $degrees
+     */
     public function testGetRankine(array $degrees): void
     {
         $temperature = new Temperature($degrees['kelvin']);
         self::assertEqualsWithDelta($degrees['rankine'], $temperature->getRankine(), self::ACCEPTABLE_DELTA);
     }
 
-    /** @dataProvider temperatureDataProvider */
+    /**
+     * @dataProvider temperatureDataProvider
+     * @param DataProviderType $degrees
+     */
     public function testGetDelisle(array $degrees): void
     {
         $temperature = new Temperature($degrees['kelvin']);
         self::assertEqualsWithDelta($degrees['delisle'], $temperature->getDelisle(), self::ACCEPTABLE_DELTA);
     }
 
-    /** @dataProvider temperatureDataProvider */
+    /**
+     * @dataProvider temperatureDataProvider
+     * @param DataProviderType $degrees
+     */
     public function testGetNewton(array $degrees): void
     {
         $temperature = new Temperature($degrees['kelvin']);
         self::assertEqualsWithDelta($degrees['newton'], $temperature->getNewton(), self::ACCEPTABLE_DELTA);
     }
 
-    /** @dataProvider temperatureDataProvider */
+    /**
+     * @dataProvider temperatureDataProvider
+     * @param DataProviderType $degrees
+     */
     public function testGetReaumur(array $degrees): void
     {
         $temperature = new Temperature($degrees['kelvin']);
         self::assertEqualsWithDelta($degrees['reaumur'], $temperature->getReaumur(), self::ACCEPTABLE_DELTA);
     }
 
-    /** @dataProvider temperatureDataProvider */
+    /**
+     * @dataProvider temperatureDataProvider
+     * @param DataProviderType $degrees
+     */
     public function testGetRoemer(array $degrees): void
     {
         $temperature = new Temperature($degrees['kelvin']);
         self::assertEqualsWithDelta($degrees['roemer'], $temperature->getRoemer(), self::ACCEPTABLE_DELTA);
     }
 
+    /**
+     * @return iterable<array{DataProviderType}>
+     */
     public function temperatureDataProvider(): iterable
     {
         yield [[

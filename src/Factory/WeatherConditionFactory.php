@@ -5,6 +5,9 @@ namespace App\Factory;
 use App\Model\WeatherCondition;
 use App\Service\UnrecognizedConditionLogger;
 
+/**
+ * @phpstan-import-type OpenWeatherJsonCondition from WeatherModelFactory
+ */
 class WeatherConditionFactory
 {
     public function __construct(
@@ -13,7 +16,7 @@ class WeatherConditionFactory
     }
 
     /**
-     * @param array{id: int, main: string, description: string, icon: string}[] $json
+     * @param OpenWeatherJsonCondition[] $json
      * @return WeatherCondition[]
      */
     public function build(array $json): array
@@ -28,7 +31,7 @@ class WeatherConditionFactory
     }
 
     /**
-     * @param array{id: int, main: string, description: string, icon: string} $json
+     * @param OpenWeatherJsonCondition $json
      */
     private function buildForEntry(array $json): ?WeatherCondition
     {

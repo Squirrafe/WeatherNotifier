@@ -5,45 +5,76 @@ namespace App\Tests\Model;
 use App\Model\Speed;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @phpstan-type DataProviderType array{
+ *     metersPerSecond: int|float,
+ *     kilometersPerHour: int|float,
+ *     milesPerHour: int|float,
+ *     feetPerSecond: int|float,
+ *     knots: int|float,
+ * }
+ */
 class SpeedTest extends TestCase
 {
     public const ACCEPTABLE_DELTA = 0.01;
 
-    /** @dataProvider speedDataProvider */
+    /**
+     * @dataProvider speedDataProvider
+     * @param DataProviderType $speeds
+     */
     public function testGetMetersPerSecond(array $speeds): void
     {
         $speed = new Speed($speeds['metersPerSecond']);
         self::assertEqualsWithDelta($speeds['metersPerSecond'], $speed->getMetersPerSecond(), self::ACCEPTABLE_DELTA);
     }
 
-    /** @dataProvider speedDataProvider */
+    /**
+     * @dataProvider speedDataProvider
+     * @param DataProviderType $speeds
+     */
     public function testGetKilometersPerHour(array $speeds): void
     {
         $speed = new Speed($speeds['metersPerSecond']);
-        self::assertEqualsWithDelta($speeds['kilometersPerHour'], $speed->getKilometersPerHour(), self::ACCEPTABLE_DELTA);
+        self::assertEqualsWithDelta(
+            $speeds['kilometersPerHour'],
+            $speed->getKilometersPerHour(),
+            self::ACCEPTABLE_DELTA,
+        );
     }
 
-    /** @dataProvider speedDataProvider */
+    /**
+     * @dataProvider speedDataProvider
+     * @param DataProviderType $speeds
+     */
     public function testGetMilesPerHour(array $speeds): void
     {
         $speed = new Speed($speeds['metersPerSecond']);
         self::assertEqualsWithDelta($speeds['milesPerHour'], $speed->getMilesPerHour(), self::ACCEPTABLE_DELTA);
     }
 
-    /** @dataProvider speedDataProvider */
+    /**
+     * @dataProvider speedDataProvider
+     * @param DataProviderType $speeds
+     */
     public function testGetFeetPerSecond(array $speeds): void
     {
         $speed = new Speed($speeds['metersPerSecond']);
         self::assertEqualsWithDelta($speeds['feetPerSecond'], $speed->getFeetPerSecond(), self::ACCEPTABLE_DELTA);
     }
 
-    /** @dataProvider speedDataProvider */
+    /**
+     * @dataProvider speedDataProvider
+     * @param DataProviderType $speeds
+     */
     public function testGetKnots(array $speeds): void
     {
         $speed = new Speed($speeds['metersPerSecond']);
         self::assertEqualsWithDelta($speeds['knots'], $speed->getKnots(), self::ACCEPTABLE_DELTA);
     }
 
+    /**
+     * @return iterable<array{DataProviderType}>
+     */
     public function speedDataProvider(): iterable
     {
         yield [[

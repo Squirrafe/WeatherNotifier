@@ -2,10 +2,15 @@
 
 namespace App\Service;
 
+use App\Factory\WeatherModelFactory;
+
+/**
+ * @phpstan-import-type OpenWeatherJsonCondition from WeatherModelFactory
+ */
 class UnrecognizedConditionLogger
 {
     /**
-     * @param array{id: int, main: string, description: string, icon: string} $condition
+     * @param OpenWeatherJsonCondition $condition
      */
     public function logUnrecognizedCondition(array $condition): void
     {
