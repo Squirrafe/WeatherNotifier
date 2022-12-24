@@ -37,6 +37,7 @@ use DateTimeImmutable;
  *     icon: string,
  * }
  */
+
 readonly class WeatherModelFactory
 {
     public function __construct(
